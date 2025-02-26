@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>WEB-PORGRAMOZÁS 1 BEADANDÓ</title>
+</head>
+<body>
+    <header>
+        <h1>Web-programozás-1 Előadás Házi feladat</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Kezdőlap</a></li>
+            <li><a href="webstorage.html" class="active">Web Storage</a></li>
+            <li><a href="webworkers.html">Web Workers</a></li>
+            <li><a href="serversentevents.html">Server-Sent Events</a></li>
+            <li><a href="geolocatonapi.html">Geolocation API</a></li>
+            <li><a href="draganddropapi.html">Drag and drop API</a></li>
+            <li><a href="canvas.html">Canvas</a></li>
+            <li><a href="svg.html">SVG</a></li>
+        </ul>
+    </nav>
+
+    <aside>
+        <h2 style="text-align: center;">Web Storage</h2>
+    </aside>
+
+    <div id="content">
+        <p>A sütik hátránya:</p>
+        <ul>
+            <li>lassítják a kommunikációt, mivel minden HTML üzenettel utaznak</li>
+            <li>kódolatlanul vannak jelen az üzenetekben</li>
+            <li>korlátozott a méretük (4 kB)</li>
+        </ul>
+        <p>A Web Storage egy viszonylag új technológia, amely a HTML5-tel együtt jelent meg, és lehetővé teszi, hogy a weboldalak közvetlenül a felhasználó számítógépén, a böngészőben tároljanak adatokat.</p>
+        <p>Korábban a weboldalak kizárólag a cookie-k segítségével küldhettek adatokat a felhasználó eszközére. A HTML5 Web Storage megoldásai rugalmasabban és hatékonyabban kezelhetik az adatokat a felhasználói gépen, mint a cookie-k.</p>
+        <p>A Web Storage-nak két "típusa" van:</p>
+        <ul>
+            <li><b>session storage</b>: Az ide tárolt adatokat a böngészési munkamenet végéig őrzi a rendszer, majd automatikusan törli őket (ezzel helyettesítve a cookie-kat). Ha az adatok később már nem szükségesek sem számunkra, sem a felhasználó számára, célszerű ezt a megoldást alkalmazni, hogy takarékoskodjunk az erőforrásokkal.</li>
+            <li><b>local storage</b>: Az ide tárolt adatokkal más a helyzet, ezek mindaddig megmaradnak, amíg nem töröljük a kulcs-érték párokat, vagy a felhasználó nem dönt úgy, hogy törli őket a böngészőjéből. Miért előnyös ez? Például, ha a felhasználó új ablakot nyit, akkor is hozzáférhet az itt tárolt adatokhoz, vagy ha kilép a böngészőből, majd újra belép, az adatok továbbra is elérhetők maradnak.</li>
+        </ul>
+    </div>
+
+
+    <footer>
+        <p>Készítette: Molnár Márk (W8C9XJ)</p>
+    </footer>
+</body>
+</html>
