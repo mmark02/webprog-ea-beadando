@@ -13,39 +13,67 @@
     <nav>
         <ul>
             <li><a href="index.html">Kezdőlap</a></li>
-            <li><a href="webstorage.html" class="active">Web Storage</a></li>
-            <li><a href="webworkers.html">Web Workers</a></li>
-            <li><a href="serversentevents.html">Server-Sent Events</a></li>
-            <li><a href="geolocatonapi.html">Geolocation API</a></li>
-            <li><a href="draganddropapi.html">Drag and drop API</a></li>
-            <li><a href="canvas.html">Canvas</a></li>
-            <li><a href="svg.html">SVG</a></li>
+            <li><a href="tablazat.html">Táblázat</a></li>
+            <li><a href="html5.html" class="active">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
         </ul>
     </nav>
-
     <aside>
         <h2 style="text-align: center;">Web Storage</h2>
     </aside>
 
     <div id="content">
-        <p>A sütik hátránya:</p>
-        <ul>
-            <li>lassítják a kommunikációt, mivel minden HTML üzenettel utaznak</li>
-            <li>kódolatlanul vannak jelen az üzenetekben</li>
-            <li>korlátozott a méretük (4 kB)</li>
-        </ul>
-        <p>A Web Storage egy viszonylag új technológia, amely a HTML5-tel együtt jelent meg, és lehetővé teszi, hogy a weboldalak közvetlenül a felhasználó számítógépén, a böngészőben tároljanak adatokat.</p>
-        <p>Korábban a weboldalak kizárólag a cookie-k segítségével küldhettek adatokat a felhasználó eszközére. A HTML5 Web Storage megoldásai rugalmasabban és hatékonyabban kezelhetik az adatokat a felhasználói gépen, mint a cookie-k.</p>
-        <p>A Web Storage-nak két "típusa" van:</p>
-        <ul>
-            <li><b>session storage</b>: Az ide tárolt adatokat a böngészési munkamenet végéig őrzi a rendszer, majd automatikusan törli őket (ezzel helyettesítve a cookie-kat). Ha az adatok később már nem szükségesek sem számunkra, sem a felhasználó számára, célszerű ezt a megoldást alkalmazni, hogy takarékoskodjunk az erőforrásokkal.</li>
-            <li><b>local storage</b>: Az ide tárolt adatokkal más a helyzet, ezek mindaddig megmaradnak, amíg nem töröljük a kulcs-érték párokat, vagy a felhasználó nem dönt úgy, hogy törli őket a böngészőjéből. Miért előnyös ez? Például, ha a felhasználó új ablakot nyit, akkor is hozzáférhet az itt tárolt adatokhoz, vagy ha kilép a böngészőből, majd újra belép, az adatok továbbra is elérhetők maradnak.</li>
-        </ul>
+        <h2>Példa - Session Storage</h2>
+        <input id="bemenetSession" type="text" placeholder="Írd be a szöveget">
+        <button id="mentesSession" onclick="mentesSession()">Mentés a Session Storage-ba</button>
+        <button id="kiolvasasSession" onclick="kiolvasasSession()">Kiolvasás a Session Storage-ból</button>
+        <button id="torlesSession" onclick="torlesSession()">Törlés a Session Storage-ból</button>
+        <script type="text/javascript">
+            function mentesSession() {
+            let szovegSession = document.getElementById("bemenetSession").value;
+            sessionStorage.setItem("szovegSession", szovegSession);
+            }
+
+            function kiolvasasSession() {
+                alert(sessionStorage.getItem("szovegSession") || "Nincs mentve semmi a Session Storage-ba");
+            }
+
+            function torlesSession() {
+                sessionStorage.removeItem("szovegSession");
+            }
+        </script>
+
+        <p>Az ide tárolt adatokat a böngészési munkamenet végéig őrzi a rendszer, majd automatikusan törli őket (ezzel helyettesítve a cookie-kat). Ha az adatok később már nem szükségesek sem számunkra, sem a felhasználó számára, célszerű ezt a megoldást alkalmazni, hogy takarékoskodjunk az erőforrásokkal.
+        </p>
+
+        <h2>Példa - Local Storage</h2>
+        <input id="bemenetLocal" type="text" placeholder="Írd be a szöveget">
+        <button id="mentesLocal" onclick="mentesLocal()">Mentés a Local Storage-ba</button>
+        <button id="kiolvasasLocal" onclick="kiolvasasLocal()">Kiolvasás a Local Storage-ból</button>
+        <button id="torlesLocal" onclick="torlesLocal()">Törlés a Local Storage-ból</button>
+
+        <script>
+            function mentesLocal() {
+                let szovegLocal = document.getElementById("bemenetLocal").value;
+                localStorage.setItem("szovegLocal", szovegLocal);
+            }
+    
+            function kiolvasasLocal() {
+                alert(localStorage.getItem("szovegLocal") || "Nincs mentve semmi a Local Storage-ba");
+            }
+    
+            function torlesLocal() {
+                localStorage.removeItem("szovegLocal");
+            }
+        </script>
+
+        <p>Az ide tárolt adatokkal más a helyzet, ezek mindaddig megmaradnak, amíg nem töröljük a kulcs-érték párokat, vagy a felhasználó nem dönt úgy, hogy törli őket a böngészőjéből. Miért előnyös ez? Például, ha a felhasználó új ablakot nyit, akkor is hozzáférhet az itt tárolt adatokhoz, vagy ha kilép a böngészőből, majd újra belép, az adatok továbbra is elérhetők maradnak.</p>
     </div>
 
-
     <footer>
-        <p>Készítette: Molnár Márk (W8C9XJ)</p>
+        <p>Készítette: Magyar Zoltán (), Molnár Márk (W8C9XJ)</p>
     </footer>
 </body>
 </html>

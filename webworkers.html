@@ -13,30 +13,65 @@
     <nav>
         <ul>
             <li><a href="index.html">Kezdőlap</a></li>
-            <li><a href="webstorage.html">Web Storage</a></li>
-            <li><a href="webworkers.html" class="active">Web Workers</a></li>
-            <li><a href="serversentevents.html">Server-Sent Events</a></li>
-            <li><a href="geolocatonapi.html">Geolocation API</a></li>
-            <li><a href="draganddropapi.html">Drag and drop API</a></li>
-            <li><a href="canvas.html">Canvas</a></li>
-            <li><a href="svg.html">SVG</a></li>
+            <li><a href="tablazat.html">Táblázat</a></li>
+            <li><a href="html5.html" class="active">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
         </ul>
     </nav>
 
     <aside>
-        <h2 style="text-align: center;">Web Workers</h2>
+        <h2 style="text-align: center;">Web Worker</h2>
     </aside>
 
     <div id="content">
-        <p>asd</p>
-        <p>asd</p>
-        <p>asd</p>
-        <p>asd</p>
+        <h2>Példa - számok összeadása 1-től 100 millióig</h2>
+        <button id="foszalSzamitas">Számítás Főszálon (le fog fagyni az oldal)</button>
+        <p id="foszalEredmeny">Főszál eredmény: </p>
+        <p>Ha a számítást a főszálon futtatjuk, akkor az teljesen lefoglalja a böngésző fő szálát, ami felelős a felhasználói felület frissítéséért és a felhasználói interakciók kezeléséért. Ez azt jelenti, hogy amíg a számítás zajlik, az oldal nem reagál a kattintásokra, görgetésre, és más műveletekre.</p>
+
+        <button id="workerSzamitas">Számítás Web Workerben</button>
+        <p id="workerEredmeny">Web Worker eredmény: </p>
+        <p>Ha Web Worker-t használunk, a számítás egy külön háttérszálon fut, így a főszál szabadon marad, és továbbra is gördülékenyen kezeli a felhasználói interakciókat. Mivel a számítás egy külön szálon történik, a főszál közben más műveleteket is végrehajthat, így a felhasználói élmény zavartalan marad. Maga a számítási sebesség nem feltétlenül gyorsabb a Web Worker esetén, de az oldal nem fagy le, és folyamatosan reagál a műveletekre.</p>
+
+        <script>
+            const worker = new Worker("worker.js");
+
+            const foszalButton = document.getElementById("foszalSzamitas");
+            const workerButton = document.getElementById("workerSzamitas");
+            const normalEredmeny = document.getElementById("foszalEredmeny");
+            const workerEredmeny = document.getElementById("workerEredmeny");
+
+            foszalButton.onclick = function() {
+                const limit = 10000000000;
+                const kezdesIdo = performance.now();
+                
+                let sum = 0;
+                for (let i = 1; i <= limit; i++) {
+                    sum += i;
+                }
+                
+                const vegeIdo = performance.now();
+                normalEredmeny.textContent = 
+                    `Főszál eredmény: ${sum} (idő: ${(vegeIdo - kezdesIdo).toFixed(2)} ms)`;
+                };
+
+                workerButton.onclick = function() {
+                    const limit = 10000000000;
+                    worker.postMessage(limit);
+                };
+
+                worker.onmessage = function(event) {
+                    workerEredmeny.textContent = 
+                        `Web Worker eredmény: ${event.data.result} (idő: ${event.data.time.toFixed(2)} ms)`;
+                };
+        </script>
     </div>
 
 
     <footer>
-        <p>Készítette: Molnár Márk (W8C9XJ)</p>
+        <p>Készítette: Magyar Zoltán (), Molnár Márk (W8C9XJ)</p>
     </footer>
 </body>
 </html>
