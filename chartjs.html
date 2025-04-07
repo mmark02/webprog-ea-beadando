@@ -5,6 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>WEB-PORGRAMOZÁS 1 BEADANDÓ</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td{
+            padding: 7px;
+            text-align: center;
+            border: 1px solid whitesmoke;
+        }
+
+        #zold{
+            background-color: lightgreen;
+            color: white;
+            font-weight: bolder;
+        }
+
+        td{
+            background-color: whitesmoke;
+        }
+
+        tr:hover td{
+            background-color:  grey;
+            cursor: pointer;
+        }
+
+        #termekNev{
+            margin-top: 20px;
+            padding: 10px;
+            background-color: lightcyan;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        canvas{
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: 250px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -22,15 +68,157 @@
     </nav>
 
     <aside>
-        <h2 style="text-align: center;">Kezdőlap</h2>
+        <h2 style="text-align: center;">ChartJS</h2>
     </aside>
 
     <div id="content">
-        <p>asd</p>
+    <p>Az alábbi táblázatban egy fiktív informatikai üzlet eladási számait láthatjuk hónapokra bontva.</p>
+
+        <table>
+            <tr>
+                <th id="zold">Termék</th>
+                <th id="zold">Január</th>
+                <th id="zold">Február</th>
+                <th id="zold">Március</th>
+                <th id="zold">Április</th>
+                <th id="zold">Május</th>
+                <th id="zold">Június</th>
+                <th id="zold">Július</th>
+                <th id="zold">Augusztus</th>
+                <th id="zold">Szeptember</th>
+                <th id="zold">Október</th>
+                <th id="zold">November</th>
+                <th id="zold">December</th>
+            </tr>
+            <tr>
+                <td id="zold">Laptop</td>
+                <td>105</td>
+                <td>110</td>
+                <td>100</td>
+                <td>94</td>
+                <td>75</td>
+                <td>86</td>
+                <td>120</td>
+                <td>144</td>
+                <td>150</td>
+                <td>100</td>
+                <td>145</td>
+                <td>164</td>
+            </tr>
+            <tr>
+                <td id="zold">Monitor</td>
+                <td>60</td>
+                <td>65</td>
+                <td>70</td>
+                <td>80</td>
+                <td>88</td>
+                <td>90</td>
+                <td>77</td>
+                <td>90</td>
+                <td>92</td>
+                <td>95</td>
+                <td>88</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td id="zold">Egér</td>
+                <td>200</td>
+                <td>210</td>
+                <td>214</td>
+                <td>219</td>
+                <td>222</td>
+                <td>231</td>
+                <td>211</td>
+                <td>205</td>
+                <td>200</td>
+                <td>195</td>
+                <td>207</td>
+                <td>211</td>
+            </tr>
+            <tr>
+                <td id="zold">Billentyűzet</td>
+                <td>153</td>
+                <td>160</td>
+                <td>164</td>
+                <td>155</td>
+                <td>140</td>
+                <td>133</td>
+                <td>144</td>
+                <td>150</td>
+                <td>156</td>
+                <td>166</td>
+                <td>170</td>
+                <td>177</td>
+            </tr>
+            <tr>
+                <td id="zold">Headset</td>
+                <td>100</td>
+                <td>110</td>
+                <td>113</td>
+                <td>107</td>
+                <td>102</td>
+                <td>110</td>
+                <td>116</td>
+                <td>121</td>
+                <td>125</td>
+                <td>131</td>
+                <td>136</td>
+                <td>144</td>
+            </tr>
+        </table>
+
+        <p id="termekNev"></p>
+        <canvas id="grafikon" width="400" height="200"></canvas>
+
+        <script>
+            const ctx = document.getElementById("grafikon").getContext('2d');
+            let chart;
+
+            function generalas(labels, data){
+                if(chart){
+                    chart.destroy();
+                }
+
+                const honapok = ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"]
+
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: honapok,
+                        datasets: [{
+                            label: 'Eladások',
+                            data: data,
+                            fill: true,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
+                    },
+
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {beginAtZero: true}
+                        }
+                    }
+                });
+
+                document.getElementById("termekNev").textContent = `${labels} eladások:`;
+            }
+
+            document.querySelectorAll('table tr').forEach((sor, index) => {
+                if(index > 0){ //fejléc kihagyásas
+                    sor.addEventListener('click', () => {
+                        const felirat = [sor.cells[0].textContent];
+                        const adat = Array.from(sor.cells).slice(1).map(cell => parseFloat(cell.textContent));
+                        generalas(felirat, adat);
+                    })
+                }
+            });
+        </script>
     </div>
 
     <footer>
-        <p>Készítette: Magyar Zoltán (), Molnár Márk (W8C9XJ)</p>
+        <p>Készítette: Magyar Zoltán (TYDUNU), Molnár Márk (W8C9XJ)</p>
     </footer>
 </body>
 </html>

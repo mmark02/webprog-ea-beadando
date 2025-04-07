@@ -5,6 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>WEB-PORGRAMOZÁS 1 BEADANDÓ</title>
+    <style>
+        #alkalmazottForm{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        #alkalmazottForm:hover{
+            box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #alkalmazottForm input{
+            padding: 10px;
+            border: 1px solid gainsboro;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        button{
+            padding: 10px 15px;
+            border: none;
+            background-color: grey;
+            color: white;
+            border-radius: 15px;
+        }
+
+        .torles{
+            background-color: red
+        }
+
+        .szerkesztes{
+            background-color: orange;
+        }
+
+        button:hover{
+            background-color: darkgray;
+        }
+
+        .torles:hover{
+            background-color: brown;
+        }
+
+        .szerkesztes:hover{
+            background-color: orangered;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 1px solid black;
+        }
+
+        thead th{
+            background-color: gainsboro;
+            color: white;
+            padding: 10px;
+        }
+
+        tbody tb{
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        tr{
+            text-align: center;
+        }
+
+        tr:hover{
+            background-color: gainsboro;
+        }
+
+        th{
+            cursor: pointer;
+        }
+
+        th:hover{
+            background-color: gray;
+        }
+
+        th:hover::after{
+            content: " ⬇ Rendezés";
+            position: absolute;
+            font-size: 12px;
+            transform: translateY(-50%);
+        }
+
+        #kereses{
+            width: 500px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -22,15 +118,164 @@
     </nav>
 
     <aside>
-        <h2 style="text-align: center;">Kezdőlap</h2>
+        <h2 style="text-align: center;">CRUD Táblázat</h2>
     </aside>
 
     <div id="content">
-        <p>asd</p>
+        <p>Ez egy alkalmazottak nyilvántartására szolgáló táblázat, amely lehetővé teszi, hogy alkalmazottakat lehessen hozzáadni, szerkeszteni vagy törölni. A felhasználók kereshetnek a táblázatban szereplő adatok között, és az oszlopok szerint rendezhetik az adatokat.</p>
+
+        <form id="alkalmazottForm">
+            <div>
+                <input type="text" id="nev" required placeholder="Név">
+                <input type="date" id="szuletesiIdo" required placeholder="Születési idő">
+                <input type="text" id="beosztas" required placeholder="Beosztás">
+                <input type="email" id="email" required placeholder="Email cím">
+                <button type="submit">Hozzáadás</button>  
+                
+            </div>
+            <div>
+                <input type="text" id="kereses" placeholder="Keresés... (Kezdj el gépelni!)">
+            </div>
+              
+        </form>
+
+        <table>
+            <thead>
+                <th onclick="rendezes('nev')" style="width: 145px;">Név</th>
+                <th onclick="rendezes('szuletesiIdo')">Születési idő</th>
+                <th onclick="rendezes('eletkor')">Életkor</th>
+                <th onclick="rendezes('beosztas')">Beosztás</th>
+                <th onclick="rendezes('email')">Email cím</th>
+                <th>Műveletek</th>
+                <tbody id="alkalmazottTablazat"></tbody>
+            </thead>
+        </table>
     </div>
 
+    <script>
+        const form = document.getElementById("alkalmazottForm");
+        const tablazat = document.getElementById("alkalmazottTablazat");
+        let alkalmazottak = [];
+        let jelenlegiRendezes = {mezo: '', novekvo: true};
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const nev = document.getElementById("nev").value;
+            const szuletesiIdo = document.getElementById("szuletesiIdo").value;
+            const eletkor = eletkorSzamitas(szuletesiIdo);
+            const beosztas = document.getElementById("beosztas").value;
+            const email = document.getElementById("email").value;
+
+            const alkalmazott = {nev, szuletesiIdo, eletkor, beosztas, email};
+            alkalmazottak.push(alkalmazott);
+            hozzaad();
+            form.reset();
+        });
+
+        function eletkorSzamitas(datum){
+            if(!datum){
+                return 'N/A';
+            }
+            const ma = new Date();
+            const szuletesNap = new Date(datum);
+            if(isNaN(szuletesNap.getTime())){
+                return 'N/A';
+            }
+            let kor = ma.getFullYear() - szuletesNap.getFullYear();
+            const honapKulonbseg = ma.getMonth() - szuletesNap.getMonth();
+
+            if(honapKulonbseg < 0 || honapKulonbseg === 0 && ma.getDate() < szuletesNap.getDate()){
+                kor--;
+            }
+
+            return kor;
+        }
+
+        function megjelenit(lista){
+            tablazat.innerHTML = '';
+            lista.forEach((alkalmazott, index) => {
+                const sor = document.createElement('tr');
+                sor.innerHTML = `
+                <td>${alkalmazott.nev}</td>
+                <td>${alkalmazott.szuletesiIdo}</td>
+                <td>${alkalmazott.eletkor}</td>
+                <td>${alkalmazott.beosztas}</td>
+                <td>${alkalmazott.email}</td>
+                <td>
+                    <button onclick="szerkesztes(${index})" class="szerkesztes">Szerkesztés</button>
+                    <button onclick="torles(${index})" class="torles">Törlés</button>
+                </td>
+                `;
+            tablazat.appendChild(sor);
+            });
+        }
+
+        function hozzaad(){
+            megjelenit(alkalmazottak);
+        }
+
+        function szerkesztes(index){
+            const alkalmazott = alkalmazottak[index];
+            document.getElementById("nev").value = alkalmazott.nev;
+            document.getElementById("szuletesiIdo").value = alkalmazott.szuletesiIdo;
+            document.getElementById("beosztas").value = alkalmazott.beosztas;
+            document.getElementById("email").value = alkalmazott.email;
+            torles(index);
+        }
+
+        function torles(index){
+            alkalmazottak.splice(index,1);
+            hozzaad();
+        }
+
+        function rendezes(mezo){
+            if (jelenlegiRendezes.mezo === mezo) {
+                    jelenlegiRendezes.novekvo = !jelenlegiRendezes.novekvo;
+            }
+            else{
+                jelenlegiRendezes = {mezo, novekvo: true};
+            }
+
+            alkalmazottak.sort((a, b) =>{
+                let ertekA = a[mezo];
+                let ertekB = b[mezo];
+
+                if (mezo == 'eletkor') {
+                    ertekA = parseInt(ertekA) || 0;
+                    ertekB = parseInt(ertekB) || 0;
+                }
+                else if (mezo === 'szuletesiIdo') {
+                    ertekA = new Date(ertekA);
+                    ertekB = new Date(ertekB);
+                }
+                else{
+                    ertekA = ertekA.toString().toLowerCase();
+                    ertekB = ertekB.toString().toLowerCase();
+                }
+
+                if (ertekA < ertekB) {
+                    return jelenlegiRendezes.novekvo ? -1 : 1;
+                }
+                if (ertekA > ertekB) {
+                    return jelenlegiRendezes.novekvo ? 1: -1;
+                }
+            });
+            hozzaad();
+        }
+
+        document.getElementById("kereses").addEventListener("input", function(){
+            const keresettSzoveg = document.getElementById("kereses").value.toLowerCase();
+            const szurtAlkalmazottak = alkalmazottak.filter((alkalmazott) => {
+                return Object.values(alkalmazott).some((ertek) =>
+                ertek.toString().toLowerCase().includes(keresettSzoveg)
+            );
+            });
+            megjelenit(szurtAlkalmazottak);
+        })
+
+    </script>
     <footer>
-        <p>Készítette: Magyar Zoltán (), Molnár Márk (W8C9XJ)</p>
+        <p>Készítette: Magyar Zoltán (TYDUNU), Molnár Márk (W8C9XJ)</p>
     </footer>
 </body>
 </html>
