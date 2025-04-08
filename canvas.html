@@ -13,13 +13,11 @@
     <nav>
         <ul>
             <li><a href="index.html">Kezdőlap</a></li>
-            <li><a href="webstorage.html">Web Storage</a></li>
-            <li><a href="webworkers.html">Web Workers</a></li>
-            <li><a href="serversentevents.html">Server-Sent Events</a></li>
-            <li><a href="geolocatonapi.html">Geolocation API</a></li>
-            <li><a href="draganddropapi.html">Drag and drop API</a></li>
-            <li><a href="canvas.html" class="active">Canvas</a></li>
-            <li><a href="svg.html">SVG</a></li>
+            <li><a href="tablazat.html">Táblázat</a></li>
+            <li><a href="html5.html" class="active">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
         </ul>
     </nav>
 
@@ -28,15 +26,66 @@
     </aside>
 
     <div id="content">
-        <p>asd</p>
-        <p>asd</p>
-        <p>asd</p>
-        <p>asd</p>
+        <h2>Alakzatok rajzolása JavaScript-el (Canvas)</h2>
+        <button id="kor" onclick="kor()">Kör</button>
+        <button id="teglalap" onclick="teglalap()">Téglalap</button>
+        <button id="negyzet" onclick="negyzet()">Négyzet</button>
+        <button id="haromszog" onclick="haromszog()">Háromszög</button>
+        <button id="torles" onclick="torles()">Törlés</button>
+
+        <br><br>
+        <canvas id="myCanvas" width="250" height="250" style="border: 2px solid black;"></canvas>
+
+        <script>
+            const canvas = document.getElementById("myCanvas");
+
+            if(canvas.getContext){
+                const ctx = canvas.getContext('2d');
+
+                function torles(){
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+
+                function kor(){
+                    torles();
+                    ctx.beginPath();
+                    ctx.arc(125, 125, 50, 0, 2 * Math.PI);
+                    ctx.stroke();
+                }
+
+                function teglalap(){
+                    torles();
+                    ctx.beginPath();
+                    ctx.rect(75, 75, 100, 50);
+                    ctx.stroke();
+                }
+
+                function negyzet(){
+                    torles();
+                    ctx.beginPath();
+                    ctx.rect(90, 90, 70, 70);
+                    ctx.stroke();
+                }
+
+                function haromszog(){
+                    torles();
+                    ctx.beginPath();
+                    ctx.moveTo(125, 60); //csúcs
+                    ctx.lineTo(175, 150); //jobb alsó sarok
+                    ctx.lineTo(75, 150); //bal alsó sarok
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+            }else{
+                alert("Nem támogatott a Canvas használata!")
+            }
+            
+        </script>
     </div>
 
 
     <footer>
-        <p>Készítette: Magyar Zoltán (), Molnár Márk (W8C9XJ)</p>
+        <p>Készítette: Magyar Zoltán (TYDUNU), Molnár Márk (W8C9XJ)</p>
     </footer>
 </body>
 </html>

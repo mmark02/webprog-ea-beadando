@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>WEB-PORGRAMOZÁS 1 BEADANDÓ</title>
+    <script src="dragdrop.js"></script>
+
+    <style>
+        img{
+            max-width: 75px;
+        }
+
+        .drag-elemek{
+            text-align: center;
+        }
+
+        .drop{
+            margin: 5px auto;
+            height: 75px;
+            width: 75px;
+            display: flex;
+            border: 3px dashed black;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .drop.dropped{
+            border-style: solid;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -13,13 +39,11 @@
     <nav>
         <ul>
             <li><a href="index.html">Kezdőlap</a></li>
-            <li><a href="webstorage.html">Web Storage</a></li>
-            <li><a href="webworkers.html">Web Workers</a></li>
-            <li><a href="serversentevents.html">Server-Sent Events</a></li>
-            <li><a href="geolocatonapi.html">Geolocation API</a></li>
-            <li><a href="draganddropapi.html" class="active">Drag and drop API</a></li>
-            <li><a href="canvas.html">Canvas</a></li>
-            <li><a href="svg.html">SVG</a></li>
+            <li><a href="tablazat.html">Táblázat</a></li>
+            <li><a href="html5.html" class="active">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
         </ul>
     </nav>
 
@@ -28,15 +52,47 @@
     </aside>
 
     <div id="content">
-        <p>asd</p>
-        <p>asd</p>
-        <p>asd</p>
-        <p>asd</p>
+        <h2>Húzd a megfelelő helyre az elemeket!</h2>
+
+        <section class="drag-elemek">
+            <img src="car.png" class="drag" id="auto" draggable="true" ondragstart="drag(event)">
+            <img src="plane.png" class="drag" id="repulo" draggable="true" ondragstart="drag(event)">
+            <img src="train.png" class="drag" id="vonat" draggable="true" ondragstart="drag(event)">
+            <img src="motor.png" class="drag" id="motor" draggable="true" ondragstart="drag(event)">
+        </section>
+
+        <section class="drop-elemek">
+            <div class="drop" data-target="auto" ondrop="drop(event)" ondragover="dropEngedelyezes(event)"><span>Autó</span></div>
+            <div class="drop" data-target="repulo" ondrop="drop(event)" ondragover="dropEngedelyezes(event)"><span>Repülő</span></div>
+            <div class="drop" data-target="vonat" ondrop="drop(event)" ondragover="dropEngedelyezes(event)"><span>Vonat</span></div>
+            <div class="drop" data-target="motor" ondrop="drop(event)" ondragover="dropEngedelyezes(event)"><span>Motor</span></div>
+        </section>
     </div>
 
+    <script>
+        function dropEngedelyezes(event){
+            event.preventDefault();
+        }
 
+        function drag(event){
+            event.dataTransfer.setData("text", event.target.id);
+            console.log("dragging...");
+        }
+
+        function drop(event){
+            event.preventDefault();
+            const dragId = event.dataTransfer.getData("text");
+            const dropId = event.currentTarget.getAttribute("data-target");
+
+            if(dragId == dropId){
+                const dropZone = event.currentTarget;
+                dropZone.innerHTML = "";
+                event.currentTarget.appendChild(document.getElementById(dragId));   
+            }  
+        }
+    </script>
     <footer>
-        <p>Készítette: Magyar Zoltán (), Molnár Márk (W8C9XJ)</p>
+        <p>Készítette: Magyar Zoltán (TYDUNU), Molnár Márk (W8C9XJ)</p>
     </footer>
 </body>
 </html>

@@ -26,12 +26,36 @@
     </aside>
 
     <div id="content">
-        
+        <p>Az alábbi gombra kattintva le tudja kérdezni a jelenlegi helyzetének koordinátáit:</p>
+        <button id="lekerdez">Helyzet lekérdezése</button>
+        <p id="eredmeny"></p>
+        <div id="googleMaps"></div>
     </div>
+
+    <script>
+        document.getElementById("lekerdez").addEventListener("click", function(){
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(helyzetKiiras);
+            }
+            else{
+                document.getElementById("eredmeny").innerHTML = "Nem támogatja a böngésződ a Geolocation API-t."
+            }
+
+            function helyzetKiiras(helyzet){
+                document.getElementById("eredmeny").innerHTML = "Szélesség: " + helyzet.coords.latitude + "<br>" + "Hosszúság: " + helyzet.coords.longitude + "<br>";
+                googleMaps(helyzet.coords.latitude, helyzet.coords.longitude);
+            }
+
+            function googleMaps(szelesseg, hosszusag){
+                const link = `https://www.google.com/maps?q=${szelesseg},${hosszusag}&z=15`;
+                document.getElementById("googleMaps").innerHTML = `<a href = "${link}" target="_blank">Megnyitás a Google Maps-en</a>`;
+            }
+        })
+    </script>
 
 
     <footer>
-        <p>Készítette: Magyar Zoltán (), Molnár Márk (W8C9XJ)</p>
+        <p>Készítette: Magyar Zoltán (TYDUNU), Molnár Márk (W8C9XJ)</p>
     </footer>
 </body>
 </html>
