@@ -5,6 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>WEB-PORGRAMOZÁS 1 BEADANDÓ</title>
+    <style>
+        #szamologep{
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 220px;
+        }
+
+        #kijelzo{
+            width: 200px;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: right;
+        }
+
+        #gombok{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        #gombok button{
+            padding: 10px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        #gombok button:hover{
+            background-color: #eee;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -22,13 +61,17 @@
     </nav>
 
     <aside>
-        <h2 style="text-align: center;">Kezdőlap</h2>
+        <h2 style="text-align: center;">OOJS</h2>
     </aside>
 
     <div id="content">
-        <p>asd</p>
+        <p>Számológép</p>
+        <div id="szamologep">
+            <input type="text" id="kijelzo" readonly>
+            <div id="gombok"></div>
+        </div>
     </div>
-
+    <script src="oojs.js"></script>
     <footer>
         <p>Készítette: Magyar Zoltán (TYDUNU), Molnár Márk (W8C9XJ)</p>
     </footer>
