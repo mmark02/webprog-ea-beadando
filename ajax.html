@@ -5,6 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>WEB-PORGRAMOZÁS 1 BEADANDÓ</title>
+    <script src="ajax.js"></script>
+
+    <style>
+        #content{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #readDiv{
+            width: 40%;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        button{
+            padding: 10px 15px;
+            border: none;
+            background-color: grey;
+            color: white;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        button:hover{
+            background-color: darkgray;
+        }
+
+        #jobb{
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #createDiv, #updateDiv, #deleteDiv{
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        input{
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td{
+            border: 1px solid lightgray;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th{
+            background-color: #0073e6;
+            color: white;
+        }
+
+        tr:hover{
+            background-color: lightgray;
+        }
+
+        #kodP{
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -22,11 +97,45 @@
     </nav>
 
     <aside>
-        <h2 style="text-align: center;">Kezdőlap</h2>
+        <h2 style="text-align: center;">AJAX</h2>
     </aside>
-
+    
     <div id="content">
-        <p>asd</p>
+        <div id="readDiv">
+            <p id="kodP">Kód: W8C9XJmma123</p>
+            <h3>Read funkció:</h3>
+            <button id="readBtn" onclick="kiolvasas()">Adatok frissítése</button>
+            <div id="readResult"></div>
+        </div>
+        
+        <div id="jobb">
+            <div id="createDiv">
+                <h3>Create funkció:</h3>
+                <input type="text" id="name" placeholder="Név">
+                <input type="number" id="height" placeholder="Magasság">
+                <input type="number" id="weight" placeholder="Súly">
+                <button id="createBtn" onclick="letrehozas()">Létrehozás</button>
+                <div id="createResult"></div>
+            </div>
+    
+            <div id="updateDiv">
+                <h3>Update funkció:</h3>
+                <input type="number" placeholder="Módosítani kívánt ID" id="searchId">
+                <button id="showUpdate" onclick="getDataForId()">Adatok betöltése</button> <br>
+                <input type="text" id="updateName" placeholder="Név">
+                <input type="number" id="updateHeight" placeholder="Magasság">
+                <input type="number" id="updateWeight" placeholder="Súly">
+                <button id="updateBtn" onclick="frissites()">Frissítés</button>
+                <div id="updateResult"></div>
+            </div>
+    
+            <div id="deleteDiv">
+                <h3>Delete funkció:</h3>
+                <input type="number" id="deleteId" placeholder="Törölni kívánt ID">
+                <button id="deleteBtn" onclick="torles()">Törlés</button>
+                <div id="deleteResult"></div>
+            </div>
+        </div>
     </div>
 
     <footer>
