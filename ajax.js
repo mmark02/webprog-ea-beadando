@@ -1,4 +1,4 @@
-const url = 'http://gamf.nhely.hu/ajax2/';
+const url = 'https://demoserver.hu/AjaxApi.php';
 const code = 'W8C9XJmma123';
 
 async function kiolvasas(){
