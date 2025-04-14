@@ -18,6 +18,7 @@
             <li><a href="chartjs.html">ChartJS</a></li>
             <li><a href="ajax.html">AJAX</a></li>
             <li><a href="oojs.html">OOJS</a></li>
+            <li><a href="https://demoserver.hu/react/react.html">React</a></li>
         </ul>
     </nav>
 
@@ -29,11 +30,11 @@
         <h2>Példa - számok összeadása 1-től 100 millióig</h2>
         <button id="foszalSzamitas">Számítás Főszálon (le fog fagyni az oldal)</button>
         <p id="foszalEredmeny">Főszál eredmény: </p>
-        <p>Ha a számítást a főszálon futtatjuk, akkor az teljesen lefoglalja a böngésző fő szálát, ami felelős a felhasználói felület frissítéséért és a felhasználói interakciók kezeléséért. Ez azt jelenti, hogy amíg a számítás zajlik, az oldal nem reagál a kattintásokra, görgetésre, és más műveletekre.</p>
+        <p id="bekezdes">Ha a számítást a főszálon futtatjuk, akkor az teljesen lefoglalja a böngésző fő szálát, ami felelős a felhasználói felület frissítéséért és a felhasználói interakciók kezeléséért. Ez azt jelenti, hogy amíg a számítás zajlik, az oldal nem reagál a kattintásokra, görgetésre, és más műveletekre.</p>
 
         <button id="workerSzamitas">Számítás Web Workerben</button>
         <p id="workerEredmeny">Web Worker eredmény: </p>
-        <p>Ha Web Worker-t használunk, a számítás egy külön háttérszálon fut, így a főszál szabadon marad, és továbbra is gördülékenyen kezeli a felhasználói interakciókat. Mivel a számítás egy külön szálon történik, a főszál közben más műveleteket is végrehajthat, így a felhasználói élmény zavartalan marad. Maga a számítási sebesség nem feltétlenül gyorsabb a Web Worker esetén, de az oldal nem fagy le, és folyamatosan reagál a műveletekre.</p>
+        <p id="bekezdes">Ha Web Worker-t használunk, a számítás egy külön háttérszálon fut, így a főszál szabadon marad, és továbbra is gördülékenyen kezeli a felhasználói interakciókat. Mivel a számítás egy külön szálon történik, a főszál közben más műveleteket is végrehajthat, így a felhasználói élmény zavartalan marad. Maga a számítási sebesség nem feltétlenül gyorsabb a Web Worker esetén, de az oldal nem fagy le, és folyamatosan reagál a műveletekre.</p>
 
         <script>
             const worker = new Worker("worker.js");
@@ -43,7 +44,7 @@
             const normalEredmeny = document.getElementById("foszalEredmeny");
             const workerEredmeny = document.getElementById("workerEredmeny");
 
-            foszalButton.onclick = function() {
+                foszalButton.onclick = function() {
                 const limit = 10000000000;
                 const kezdesIdo = performance.now();
                 
@@ -69,7 +70,7 @@
         </script>
     </div>
     <footer>
-        <p>Készítette: Magyar Zoltán (TYDUNU), Molnár Márk (W8C9XJ)</p>
+        Készítette: Magyar Zoltán (TYDUNU), Molnár Márk (W8C9XJ)
     </footer>
 </body>
 </html>

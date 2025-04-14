@@ -1,7 +1,7 @@
 const dragElemek = document.querySelectorAll("drag");
 const dropElemek = document.querySelectorAll("drop");
 
-    dragElemek.forEach(elem => {
+dragElemek.forEach(elem => {
     elem.addEventListener("dragstart", dragStart);
 });
 
